@@ -1,26 +1,21 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-#define pii pair<int,int>
 const int N = 510;
-int n, m, dist[N], vis[N];
+int n, m;
+int dist[N], vis[N];
 int g[N][N];
 void dijkstra()
 {
     memset(dist, 0x3f, sizeof dist);
     dist[1] = 0;
-    for (int i = 0; i < n - 1; i++)
+    for (int i = 0; i < n; i++)
     {
-        int mn = 0x3f3f3f3f, p = 0;
+        int p = 0;
         for (int j = 1; j <= n; j++)
         {
-            if (!vis[j] && dist[j] < mn)
-            {
-                mn = dist[j];
+            if (!vis[j] && (p == 0 || dist[p] > dist[j]))
                 p = j;
-            }
         }
-        if (p == 0)
-            break;
         vis[p] = 1;
         for (int j = 1; j <= n; j++)
         {
@@ -31,12 +26,16 @@ void dijkstra()
 }
 int main()
 {
-    cin >> n >> m;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    scanf("%d%d", &n, &m);
+    memset(g, 0x3f, sizeof g);
     for (int i = 0; i < m; i++)
     {
-        int a, b, c;
-        cin >> a >> b >> c;
-        g[a][b] = c;
+        int u, v, w;
+        scanf("%d%d%d", &u, &v, &w);
+        g[u][v] = min(g[u][v], w);
     }
     dijkstra();
     if (dist[n] == 0x3f3f3f3f)
