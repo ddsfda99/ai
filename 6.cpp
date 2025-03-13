@@ -1,7 +1,7 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 string s;
-map<string, int> dist;
+unordered_map<string, int> dist;
 int dx[] = {1, 0, -1, 0}, dy[] = {0, 1, 0, -1};
 void dijkstra()
 {
@@ -43,7 +43,7 @@ int main()
         s += c;
     }
     dijkstra();
-    if (dist["12345678x"] == 0x3f3f3f3f)
+    if (!dist.count("12345678x"))
         cout << -1;
     else
         cout << dist["12345678x"];
