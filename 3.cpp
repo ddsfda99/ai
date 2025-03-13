@@ -1,6 +1,6 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-#define pii pair<int,int>
+#define pii pair<int, int>
 const int N = 2e5;
 int n, m, dist[N], vis[N];
 vector<pii> g[N];
@@ -31,17 +31,17 @@ void dijkstra()
 }
 int main()
 {
-    cin >> n >> m;
+    scanf("%d%d", &n, &m);
     for (int i = 0; i < m; i++)
     {
         int a, b, c;
-        cin >> a >> b >> c;
+        scanf("%d%d%d", &a, &b, &c);
         g[a].push_back(make_pair(b, c));
     }
     dijkstra();
     if (dist[n] == 0x3f3f3f3f)
-        cout << -1;
+        printf("-1");
     else
-        cout << dist[n];
+        printf("%d", dist[n]);
     return 0;
 }
