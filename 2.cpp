@@ -18,10 +18,7 @@ void dijkstra()
         }
         vis[p] = 1;
         for (int j = 1; j <= n; j++)
-        {
-            if (!vis[j] && g[p][j] && dist[p] + g[p][j] < dist[j])
-                dist[j] = dist[p] + g[p][j];
-        }
+            dist[j] = min(dist[j], dist[p] + g[p][j]);
     }
 }
 int main()
@@ -44,3 +41,4 @@ int main()
         cout << dist[n];
     return 0;
 }
+
