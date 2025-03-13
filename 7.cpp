@@ -1,8 +1,8 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 int dx[] = {-1, 1, 0, 0}, dy[] = {0, 0, -1, 1};
 char dir[] = {'u', 'd', 'l', 'r'};
-priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> open;
+priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> q;
 map<string, int> dist;
 map<string, pair<string, int>> pre;
 int eval(string s)
@@ -15,17 +15,22 @@ int eval(string s)
             int n = s[i] - '1';
             sum += abs(n / 3 - i / 3) + abs(n % 3 - i % 3);
         }
+        else
+        {
+            int n = 8;
+            sum += abs(n / 3 - i / 3) + abs(n % 3 - i % 3);
+        }
     }
     return sum;
 }
 void Astar(string st)
 {
     dist[st] = 0;
-    open.push(make_pair(eval(st), st));
-    while (open.size())
+    q.push(make_pair(eval(st), st));
+    while (q.size())
     {
-        pair<int, string> t = open.top();
-        open.pop();
+        pair<int, string> t = q.top();
+        q.pop();
         string str = t.second;
         int dis = dist[str];
         if (str == "12345678x")
@@ -44,7 +49,7 @@ void Astar(string st)
             {
                 dist[str2] = dis + 1;
                 pre[str2] = make_pair(str, i);
-                open.push(make_pair(dist[str2] + eval(str2), str2));
+                q.push(make_pair(dist[str2] + eval(str2), str2));
             }
         }
     }
