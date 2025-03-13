@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 int dx[] = {1, 0, -1, 0}, dy[] = {0, 1, 0, -1};
-map<string, int> dist;
+unordered_map<string, int> dist;
 string s;
 int bfs(string st)
 {
