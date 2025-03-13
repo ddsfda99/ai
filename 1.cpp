@@ -1,24 +1,20 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 const int N = 1e5 + 10;
 int n, m, dist[N], vis[N];
-vector<int> g[N];
-int bfs()
+set<int> g[N];
+void bfs()
 {
-    memset(dist, 0x3f, sizeof dist);
     queue<int> q;
     q.push(1);
     dist[1] = 0;
+    vis[1] = 1;
     while (q.size())
     {
         int t = q.front();
         q.pop();
-        if (vis[t])
-            continue;
-        vis[t] = 1;
-        for (int i = 0; i < g[t].size(); i++)
+        for (const auto &j : g[t])
         {
-            int j = g[t][i];
             if (!vis[j])
             {
                 dist[j] = dist[t] + 1;
@@ -27,9 +23,6 @@ int bfs()
             }
         }
     }
-    if (dist[n] == 0x3f3f3f3f)
-        return -1;
-    return dist[n];
 }
 int main()
 {
@@ -38,8 +31,12 @@ int main()
     {
         int a, b;
         cin >> a >> b;
-        g[a].push_back(b);
+        g[a].insert(b);
     }
-    cout << bfs();
+    bfs();
+    if (vis[n] == 0)
+        cout << -1;
+    else
+        cout << dist[n];
     return 0;
 }
