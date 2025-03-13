@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 string s;
 map<string, int> mp;
@@ -8,9 +8,7 @@ bool dfs(string str)
     if (str == "12345678x")
         return true;
     mp[str] = 1;
-    int p = 0;
-    while (str[p]!='x')
-        p++;
+    int p = str.find('x');
     int x = p / 3, y = p % 3;
     for (int i = 0; i < 4; i++)
     {
