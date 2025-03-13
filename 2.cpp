@@ -23,9 +23,6 @@ void dijkstra()
 }
 int main()
 {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
     scanf("%d%d", &n, &m);
     memset(g, 0x3f, sizeof g);
     for (int i = 0; i < m; i++)
@@ -36,9 +33,9 @@ int main()
     }
     dijkstra();
     if (dist[n] == 0x3f3f3f3f)
-        cout << -1;
+        printf("-1");
     else
-        cout << dist[n];
+        printf("%d", dist[n]);
     return 0;
 }
 
