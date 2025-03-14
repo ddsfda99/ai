@@ -34,7 +34,9 @@ void Astar(string st)
         string str = t.second;
         int dis = dist[str];
         if (str == "12345678x")
-            break;
+            return;
+        if (dis >= 31)
+            return;
         int p = str.find('x');
         int x = p / 3, y = p % 3;
         for (int i = 0; i < 4; i++)
