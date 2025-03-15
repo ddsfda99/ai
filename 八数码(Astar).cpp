@@ -3,8 +3,8 @@ using namespace std;
 int dx[] = {-1, 1, 0, 0}, dy[] = {0, 0, -1, 1};
 char dir[] = {'u', 'd', 'l', 'r'};
 priority_queue<pair<int, string>, vector<pair<int, string>>, greater<pair<int, string>>> q;
-map<string, int> dist;
-map<string, pair<string, int>> pre;
+unordered_map<string, int> dist;
+unordered_map<string, pair<string, int>> pre;
 int eval(string s)
 {
     int sum = 0;
@@ -13,11 +13,6 @@ int eval(string s)
         if (s[i] != 'x')
         {
             int n = s[i] - '1';
-            sum += abs(n / 3 - i / 3) + abs(n % 3 - i % 3);
-        }
-        else
-        {
-            int n = 8;
             sum += abs(n / 3 - i / 3) + abs(n % 3 - i % 3);
         }
     }
@@ -34,8 +29,6 @@ void Astar(string st)
         string str = t.second;
         int dis = dist[str];
         if (str == "12345678x")
-            return;
-        if (dis >= 31)
             return;
         int p = str.find('x');
         int x = p / 3, y = p % 3;
@@ -65,20 +58,34 @@ int main()
         cin >> c;
         s += c;
     }
-    Astar(s);
-    if (!dist.count("12345678x"))
-        puts("unsolvable");
-    else
+    int cnt = 0;
+    for (int i = 0; i < 9; i++)
     {
-        vector<char> ans;
-        string tmp = "12345678x";
-        while (tmp != s)
+        if (s[i] == 'x')
+            continue;
+        for (int j = 0; j < i; j++)
         {
-            ans.push_back(dir[pre[tmp].second]);
-            tmp = pre[tmp].first;
+            if (s[j] == 'x')
+                continue;
+            if (s[j] > s[i])
+                cnt++;
         }
-        for (int i = ans.size() - 1; i >= 0; i--)
-            cout << ans[i];
     }
+    if (cnt % 2 == 1)
+    {
+        cout << "unsolvable";
+        return 0;
+    }
+    Astar(s);
+    vector<char> ans;
+    string tmp = "12345678x";
+    while (tmp != s)
+    {
+        ans.push_back(dir[pre[tmp].second]);
+        tmp = pre[tmp].first;
+    }
+    for (int i = ans.size() - 1; i >= 0; i--)
+        cout << ans[i];
     return 0;
 }
+
